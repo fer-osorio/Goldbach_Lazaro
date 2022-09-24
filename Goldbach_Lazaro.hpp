@@ -17,3 +17,9 @@ ui32 Find_in_list(ui32 number, pointer_prime list);
 // We claim that the last element of this list is a pair of primes, whitch sum is equal to the even
 // number passed to the function.
 ui32_pair_list* Lazaro_Method(ui32 even_number);
+
+//-Printing a ui32_pair_list list.
+void Print_List(ui32_pair_list* list);
+
+//-Realised used memory.
+void Deallocate_List(ui32_pair_list* list);

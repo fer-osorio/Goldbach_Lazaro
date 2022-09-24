@@ -28,7 +28,7 @@ pointer_prime Eratosthenes_sieve(const ui64 threshold);
     'number'.*/
 ui64 Integral_square_root(ui64 number);
 
-void Print_Prime_List(pointer_prime primes);
+void Print_List(pointer_prime primes);
 
 /*Realese used memory.*/
-void Clean_Prime_List(pointer_prime primes);
+void Deallocate_List(pointer_prime primes);

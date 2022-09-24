@@ -22,7 +22,7 @@ ui32 Find_in_list(ui32 number, pointer_prime list){
 // by the Lazaro method. We claim that the last element of this list is a pair of primes, whitch 
 // sum is equal to the even number passed to the function.
 ui32_pair_list* Lazaro_Method(ui32 even_number){
-    //Even number must be bigger than 2.
+    //-Even number must be bigger than 2.
     if(even_number < 3)
         Error("Goldbach_Lazaro.cpp, function Lazaro_Method: even_number < 3.");
 
@@ -30,17 +30,17 @@ ui32_pair_list* Lazaro_Method(ui32 even_number){
     if(even_number%2 != 0)
         Error("Goldbach_Lazaro.cpp, function Lazaro_Method: even_number%2 != 0.");
 
-    //-Listing all the primes smallers than 'even_number'.
+    //-Listing all the primes smallers than 'even_number'. Remember to deallocate this list.
     pointer_prime primes = Create_Prime_List(even_number);
     //---------------------Warning: Possible source of memory leaks.--------------------------//
     ui32_pair_list *trials = new ui32_pair_list, *queue = trials;
-    (trials->pair)[0] = even_number - 2;
-    (trials->pair)[1] = 2;
+    (queue->pair)[0] = even_number - 2;
+    (queue->pair)[1] = 2;
 
     ui32 counter = 1;
 
     bool both_are_primes = false;
-    while(!both_are_primes && (trials->pair)[0] > 1){
+    while(!both_are_primes && (queue->pair)[0] > 1){
         //--------------Warning, 'new' perator used.---------------------
         queue->next_pair = new ui32_pair_list;
 
@@ -57,5 +57,26 @@ ui32_pair_list* Lazaro_Method(ui32 even_number){
     if(!both_are_primes)
         Error("Goldbach_Lazaro.cpp, function Lazaro_Method: Could not find the desired primes.");
 
+    Deallocate_List(primes);
+
     return trials;
+}
+
+//-Printing a ui32_pair_list list.
+void Print_List(ui32_pair_list* list){
+    ui32_pair_list* queue = list;
+    while(queue != nullptr){
+        std::cout << "(" << (queue->pair)[0] << ", " << (queue->pair)[1] << ")\n";
+        queue = queue->next_pair;
+    }
+}
+
+//-Realised used memory.
+void Deallocate_List(ui32_pair_list* list){
+    ui32_pair_list* head = list;
+    while(head != nullptr){
+        list = head->next_pair;
+        delete head;
+        head = list;
+    }
 }

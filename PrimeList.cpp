@@ -3,7 +3,8 @@
 #include <iostream>
 #include "PrimeList.hpp"
 
-//-Returns a list of the primes smallers or equals than 'threshold'.
+//-Returns a list of the primes smallers or equals than 'threshold'. Remember to delete the list once it has 
+// fulfilled its objective.
 pointer_prime Create_Prime_List(ui64 threshold){;
     return Eratosthenes_sieve(threshold);
 }
@@ -17,9 +18,9 @@ ui64 Integral_square_root(ui64 number){
     return root-1;
 }
 
-/*  Creates a new element for the list of pointers.*/
+/*  Creates a new element for the list of pointers. Remember to deallocate the memory used.*/
 pointer_prime New_pointer_prime(ui64 primeNumber, ui32 index){
-    /*New pointer prime (npp).*/
+    /*New pointer prime (npp). Posible source of memory leaks.*/
     pointer_prime npp = new prime;
     npp->primeNumber = primeNumber;
     npp->index = index;
@@ -28,7 +29,8 @@ pointer_prime New_pointer_prime(ui64 primeNumber, ui32 index){
     return npp;
 }
 
-/*  Find the primes smallers or equals than threshold using the sieve of Eratosthenes.*/
+/* -Find the primes smallers or equals than threshold using the sieve of Eratosthenes. Remember to deallocate the
+    memory used once the list is not more useful.*/
 pointer_prime Eratosthenes_sieve(const ui64 threshold){
     /*  Whith the sieve algoritm, we just need to look up to the square root of the desire
         threshold.*/
@@ -73,8 +75,8 @@ pointer_prime Eratosthenes_sieve(const ui64 threshold){
     return listOfPrimes;
 }
 
-//Printing list of primes
-void Print_Prime_List(pointer_prime primes){
+//Printing list of primes.
+void Print_List(pointer_prime primes){
     pointer_prime ptr_p = primes;
     while(ptr_p != nullptr){
         std::cout << "(" << ptr_p->index << "," << ptr_p->primeNumber << ")" << "\n";
@@ -83,15 +85,11 @@ void Print_Prime_List(pointer_prime primes){
 }
 
 /*Realese used memory.*/
-void Clean_Prime_List(pointer_prime primes){
+void Deallocate_List(pointer_prime primes){
     pointer_prime ptr_p = primes;
     while(ptr_p != nullptr){
         primes = primes->nextPrime;
         delete ptr_p;
         ptr_p = primes;
     }
-}
-
-bool Is_prime(ui32 number){
-    
 }
