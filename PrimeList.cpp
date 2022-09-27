@@ -75,21 +75,61 @@ pointer_prime Eratosthenes_sieve(const ui64 threshold){
     return listOfPrimes;
 }
 
-//Printing list of primes.
-void Print_List(pointer_prime primes){
-    pointer_prime ptr_p = primes;
-    while(ptr_p != nullptr){
-        std::cout << "(" << ptr_p->index << "," << ptr_p->primeNumber << ")" << "\n";
-        ptr_p = ptr_p->nextPrime;
+//-Looks for a number in a list of type prime. If it's found, return the index in the list. If it's not
+// found, it returns -1.
+int Find_in_list(ui32 number, pointer_prime list) {
+    while (list != nullptr)
+    {
+        if (list->primeNumber == number)
+            return list->index;
+
+        list = list->nextPrime;
+    }
+    //-At this point we have reach the end of the list, so...
+    return -1;
+}
+
+/*-Realese used memory.*/
+void Deallocate_List(pointer_prime list){
+    pointer_prime head = list;
+    while(head != nullptr){
+        list = list->nextPrime;
+        delete head;
+        head = list;
     }
 }
 
-/*Realese used memory.*/
-void Deallocate_List(pointer_prime primes){
-    pointer_prime ptr_p = primes;
-    while(ptr_p != nullptr){
-        primes = primes->nextPrime;
-        delete ptr_p;
-        ptr_p = primes;
+//---------------------------------------- Printing porpuses ----------------------------------------------//
+
+//-Returns the length of the string that represents the number in base 10.
+ui32 Length(int number) {
+    ui32 length = 0;
+    //-Considering the minus sign.
+    if (number < 0) {
+        length = 1;
+        number = -number;
+    }
+    if (number == 0)
+        return 1;
+    while (number > 0) {
+        length++;
+        //-'Removing' the last digit.
+        number -= number % 10;
+        number /= 10;
+    }
+    return length;
+}
+
+//-Prints the specified number of spaces.
+void Print_spaces(ui32 numb_spcs) {
+    for (ui32 i = 0; i < numb_spcs; i++)
+        std::cout << " ";
+}
+
+//-Printing list of primes.
+void Print_List(pointer_prime list) {
+    while (list != nullptr) {
+        std::cout << "(" << list->index << "," << list->primeNumber << ")\n";
+        list = list->nextPrime;
     }
 }

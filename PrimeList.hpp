@@ -28,7 +28,19 @@ pointer_prime Eratosthenes_sieve(const ui64 threshold);
     'number'.*/
 ui64 Integral_square_root(ui64 number);
 
-void Print_List(pointer_prime primes);
+//-Looks for a number in a list of type prime. If it's found, return the index in the list. If it's not
+// found, it returns -1.
+int Find_in_list(ui32 number, pointer_prime list);
 
 /*Realese used memory.*/
 void Deallocate_List(pointer_prime primes);
+
+//---------------------------------------- Printing porpuses ----------------------------------------------//
+
+//-Returns the length of the string that represents the number in base 10.
+ui32 Length(int number);
+
+//-Prints the specified number of spaces.
+void Print_spaces(ui32 numb_spcs);
+
+void Print_List(pointer_prime primes);
